@@ -1,2 +1,2 @@
-# icons-gallery
-Small gallery to display or make small changes to your SVG icons
+# Tuenti icons
+A small site to search available icons for Novum app

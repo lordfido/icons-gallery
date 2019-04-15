@@ -1,0 +1,73 @@
+import classnames from 'classnames';
+import * as React from 'react';
+import injectSheet from 'react-jss';
+
+import Field from '../modules/forms/field';
+import { IButtonProps } from './button';
+
+import { BORDER_RADIUS_BIG, PADDING_M, PADDING_XL } from '../../constants/styles/styles';
+
+import { ISheet } from '../../models/root';
+
+const sheet: ISheet = {
+  wrapper: {
+    margin: `${PADDING_XL}px ${PADDING_M}px`,
+    width: `calc(100% - ${PADDING_XL}px)`,
+  },
+
+  button: {
+    borderRadius: 0,
+    margin: 0,
+    padding: PADDING_M,
+
+    '&:first-child': {
+      borderBottomLeftRadius: BORDER_RADIUS_BIG,
+      borderTopLeftRadius: BORDER_RADIUS_BIG,
+      paddingLeft: PADDING_M * 2,
+    },
+    '&:last-child': {
+      borderBottomRightRadius: BORDER_RADIUS_BIG,
+      borderTopRightRadius: BORDER_RADIUS_BIG,
+      paddingRight: PADDING_M * 2,
+    },
+  },
+
+  left: {
+    textAlign: 'left',
+  },
+
+  center: {
+    textAlign: 'center',
+  },
+
+  right: {
+    textAlign: 'right',
+  },
+};
+
+interface IButtonsProps {
+  align?: 'left' | 'center' | 'right';
+  classes: { [key: string]: string };
+  className?: string;
+  options: IButtonProps[];
+}
+
+const unstyledButtons = ({ align = 'right', classes, className, options }: IButtonsProps) =>
+  options.length ? (
+    <div className={classnames(classes.wrapper, classes[align], className)}>
+      {options.map(button => (
+        <Field
+          key={button.id}
+          options={{
+            ...button,
+            className: classnames(classes.button, button.className),
+            isDisabled: (!button.isAlwaysEnabled && button.isDisabled) || button.isAlwaysDisabled,
+          }}
+        />
+      ))}
+    </div>
+  ) : null;
+
+const Buttons = injectSheet(sheet)(unstyledButtons);
+
+export default Buttons;

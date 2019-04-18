@@ -18,6 +18,7 @@
     }
   },
   "scripts": {
+    "download-icons": "ts-node ./scripts/download-icons-library",
     "build-icons": "ts-node ./scripts/build-icons-library",
     "lint": "tslint **/*.ts **/*.tsx",
     "check-types": "tsc",
@@ -44,6 +45,8 @@
     "jsdom": "^14.0.0",
     "jss": "^9.8.7",
     "moment": "^2.24.0",
+    "nodegit": "^0.24.1",
+    "os": "^0.1.1",
     "pwacompat": "^2.0.8",
     "query-string": "^6.4.2",
     "react": "^16.7.0",
@@ -75,6 +78,7 @@
     "@types/jsdom": "^12.2.3",
     "@types/jss": "^9.5.7",
     "@types/node": "^11.13.4",
+    "@types/nodegit": "^0.24.6",
     "@types/query-string": "^6.2.0",
     "@types/react": "^16.8.13",
     "@types/react-dom": "^16.8.4",
@@ -82,6 +86,7 @@
     "@types/react-redux": "^7.0.1",
     "@types/react-router-dom": "^4.3.2",
     "@types/react-select": "^2.0.16",
+    "@types/rimraf": "^2.0.2",
     "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@types/uuid": "^3.4.4",
     "@types/webpack": "^4.4.27",

@@ -103,6 +103,10 @@ const colors = [
 let mostSimilarColor: IColor;
 
 export const getMoreSimilarColor = (color: string) => {
+  if (color.length > 6) {
+    return undefined;
+  }
+
   const sampleRGB = chroma(color).rgb();
 
   colors.forEach(c => {

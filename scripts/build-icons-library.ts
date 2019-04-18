@@ -89,7 +89,9 @@ const readMetadata = (file: string): IMetaData => {
 
   if (color) {
     const similarColor = getMoreSimilarColor(color);
-    tags.push(similarColor);
+    if (typeof similarColor !== 'undefined') {
+      tags.push(similarColor);
+    }
   }
 
   if (svg) {
@@ -105,34 +107,36 @@ const readMetadata = (file: string): IMetaData => {
 const readFiles = () => {
   const filePaths = recursiveRead(ICONS_PATH);
 
-  filePaths.forEach(filePath => {
-    const pathName = filePath.replace('/src/images/icons/', '');
-    const pathParts = pathName.replace('.svg', '').split('/');
-    const pathTags = pathParts.slice(0, pathParts.length - 1);
-    const brand = pathParts[0];
-    const fileName = pathParts[pathParts.length - 1];
-    const nameTags = fileName.replace('icn-', '').split('-');
-    const metaData = readMetadata(filePath);
+  filePaths
+    .filter(path => new RegExp('.git/').test(path) === false)
+    .forEach(filePath => {
+      const pathName = filePath.replace('/src/images/icons/', '');
+      const pathParts = pathName.replace('.svg', '').split('/');
+      const pathTags = pathParts.slice(0, pathParts.length - 1);
+      const brand = pathParts[0];
+      const fileName = pathParts[pathParts.length - 1];
+      const nameTags = fileName.replace('icn-', '').split('-');
+      const metaData = readMetadata(filePath);
 
-    if (brands.findIndex(b => b === brand) < 0) {
-      brands.push(brand);
-      icons[brand] = [];
-    }
+      if (brands.findIndex(b => b === brand) < 0) {
+        brands.push(brand);
+        icons[brand] = [];
+      }
 
-    // Filter duplicated elements
-    const tags = [...pathTags, ...nameTags, ...metaData.tags];
+      // Filter duplicated elements
+      const tags = [...pathTags, ...nameTags, ...metaData.tags];
 
-    const iconData: IIcon = {
-      brand: pathTags[0],
-      color: metaData.color,
-      fileName,
-      image: `${pathName}`,
-      size: metaData.size,
-      tags: tags.filter((tag, index) => tags.indexOf(tag) >= index),
-    };
+      const iconData: IIcon = {
+        brand: pathTags[0],
+        color: metaData.color,
+        fileName,
+        image: `${pathName}`,
+        size: metaData.size,
+        tags: tags.filter((tag, index) => tags.indexOf(tag) >= index),
+      };
 
-    icons[brand].push(iconData);
-  });
+      icons[brand].push(iconData);
+    });
 
   writeMapFile();
 };

@@ -1,10 +1,10 @@
 {
-  "name": "tuenti-icons",
+  "name": "icons-gallery",
   "version": "0.1.0",
   "displayName": "Tuenti Icons",
   "description": "A small site to search available icons for Novum app",
   "main": "index.js",
-  "repository": "git@github.com:lordfido/tuenti-icons.git",
+  "repository": "git@github.com:lordfido/icons-gallery.git",
   "author": "Rafael Pérez García <rperez@tuenti.com>",
   "license": "MIT",
   "homepage": "https://localhost:8080",
@@ -20,6 +20,7 @@
   "scripts": {
     "download-icons": "ts-node ./scripts/download-icons-library",
     "build-icons": "ts-node ./scripts/build-icons-library",
+    "update-icons": "npm run download-icons && npm run build-icons",
     "lint": "tslint **/*.ts **/*.tsx",
     "check-types": "tsc",
     "prettier": "prettier --config .prettierrc --write './src/**/*.tsx' './src/**/*.ts' './src/**/*.js'",
@@ -30,9 +31,9 @@
     "build": "npm run pre-build && webpack --config ./webpack/prod.config.ts",
     "serve:https": "webpack-dev-server --host 0.0.0.0 --https true --config ./webpack/dev.config.ts",
     "precommit": "lint-staged",
-    "serve:dev": "webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/dev.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
-    "serve:pre": "npm run build-icons && webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/pre.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
-    "serve": "npm run build-icons && webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/prod.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
+    "serve:dev": "npm run update-icons && webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/dev.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
+    "serve:pre": "npm run update-icons && webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/pre.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
+    "serve": "npm run update-icons && webpack-dev-server --https true --host 0.0.0.0 --config ./webpack/prod.config.ts --cert=./cert/webapp-dev-server.crt --key=./cert/webapp-dev-server.key",
     "start": "npm run serve:dev"
   },
   "dependencies": {

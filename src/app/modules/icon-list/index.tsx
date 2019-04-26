@@ -60,6 +60,7 @@ const UnstyledIconListWrapper = ({
   FilterIcons,
   icon,
   icons,
+  pdfs,
   SelectIcon,
   SelectNextIcon,
   SelectPrevIcon,
@@ -201,6 +202,8 @@ const UnstyledIconListWrapper = ({
     iconsCount += icons[brandName].length;
   });
 
+  const iconPdf = icon ? pdfs[icon.brand].find(i => i.fileName === icon.fileName) : undefined;
+
   return (
     <div className={classes.container}>
       <Search
@@ -226,6 +229,7 @@ const UnstyledIconListWrapper = ({
           handleUpdateIconSize={handleUpdateIconSize}
           icon={icon}
           iconSize={iconSize}
+          pdf={iconPdf}
           template={
             !icon.color || !foreground
               ? replaceSize(template, icon.size, iconSize)

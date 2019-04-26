@@ -4,6 +4,7 @@ import injectSheet from 'react-jss';
 import { capitalize } from '../../utils/strings';
 import { replaceSize } from '../../utils/svg';
 
+import { IButtonProps } from '../../components/button';
 import Buttons from '../../components/buttons';
 import Label from '../../components/label';
 import Link from '../../components/link';
@@ -182,6 +183,7 @@ interface IOwnProps {
   handleUpdateIconSize: (e: IFieldOutput) => void;
   icon: IIcon;
   iconSize: string;
+  pdf?: IIcon;
   template: string;
   viewIconLimits: boolean;
 }
@@ -201,12 +203,42 @@ const UnstyledIconDetailsView = ({
   handleUpdateIconSize,
   icon,
   iconSize,
+  pdf,
   template,
   viewIconLimits,
 }: IOwnProps) => {
   const downloadSvgLink = `data:application/octet-stream;charset=utf-8;base64,${btoa(
     unescape(encodeURIComponent(template))
   )}`;
+
+  const downloadLinks: IButtonProps[] = [
+    {
+      className: classes.button,
+      download: `${icon.fileName}.svg`,
+      id: `download-${icon.brand}-${icon.fileName}-svg`,
+      label: 'SVG',
+      to: downloadSvgLink,
+      type: 'button',
+    },
+    {
+      className: classes.button,
+      id: `download-${icon.brand}-${icon.fileName}-png`,
+      label: 'PNG',
+      onClick: handleDownloadPng,
+      type: 'button',
+    },
+  ];
+
+  if (pdf) {
+    downloadLinks.push({
+      className: classes.button,
+      id: `download-${icon.brand}-${icon.fileName}-pdf`,
+      isExternal: true,
+      label: 'PDF',
+      to: pdf.image,
+      type: 'button',
+    });
+  }
 
   return (
     <div className={classes.wrapper}>
@@ -381,36 +413,7 @@ const UnstyledIconDetailsView = ({
 
           <ModalSection
             title="Downloads"
-            content={
-              <Buttons
-                align="center"
-                className={classes.fullWidth}
-                options={[
-                  {
-                    className: classes.button,
-                    download: `${icon.fileName}.svg`,
-                    id: `download-${icon.brand}-${icon.fileName}-svg`,
-                    label: 'SVG',
-                    to: downloadSvgLink,
-                    type: 'button',
-                  },
-                  {
-                    className: classes.button,
-                    id: `download-${icon.brand}-${icon.fileName}-png`,
-                    label: 'PNG',
-                    onClick: handleDownloadPng,
-                    type: 'button',
-                  },
-                  {
-                    className: classes.button,
-                    id: `download-${icon.brand}-${icon.fileName}-pdf`,
-                    label: 'PDF',
-                    onClick: handleDownloadPdf,
-                    type: 'button',
-                  },
-                ]}
-              />
-            }
+            content={<Buttons align="center" className={classes.fullWidth} options={downloadLinks} />}
           />
 
           <ModalSection

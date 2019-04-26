@@ -39,6 +39,7 @@ interface ICommonProps {
 
 export interface IButtonProps extends ICommonProps {
   isActive?: boolean;
+  isExternal?: boolean;
   download?: string;
   onClick?: (params?: any) => void;
   to?: string;

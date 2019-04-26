@@ -70,7 +70,7 @@ const unstyledButton = ({ classes, className, download, options }: IOwnProps) =>
     }),
   };
 
-  if (options.to && options.download) {
+  if (options.to && (options.isExternal || options.download)) {
     const { type, ...opt } = options;
     return <CustomLink options={{ ...opt, className: buttonClasses.wrapper }} buttonLike />;
   }

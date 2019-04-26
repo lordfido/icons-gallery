@@ -39,3 +39,5 @@ export const replaceSize = (template: string, reference: string, size: string) =
         .replace(`height="${reference}"`, `height="${size}"`)
         .replace(`height="${reference.replace('px', '')}"`, `height="${size}"`)
     : '';
+
+export const isIcon = ({ image }: IIcon) => /\.svg$/.test(image);

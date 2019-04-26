@@ -111,7 +111,10 @@ const readFiles = () => {
     .filter(path => new RegExp('.git/').test(path) === false)
     .forEach(filePath => {
       const pathName = filePath.replace('/src/images/icons/', '');
-      const pathParts = pathName.replace('.svg', '').split('/');
+      const pathParts = pathName
+        .replace('.svg', '')
+        .replace('.pdf', '')
+        .split('/');
       const pathTags = pathParts.slice(0, pathParts.length - 1);
       const brand = pathParts[0];
       const fileName = pathParts[pathParts.length - 1];

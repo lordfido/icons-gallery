@@ -14,6 +14,7 @@ export const paths = {
 export const regex = {
   html: /\.html$/,
   img: /\.(png|jpe?g|gif|ico|svg)$/,
+  pdf: /\.pdf$/,
   sw: /sw\.js/,
   ts: /\.(tsx?|js)$/,
 };
@@ -142,6 +143,18 @@ const baseConfig = {
             options: {
               sourceMap: true,
             },
+          },
+        ],
+      },
+
+      // PDF
+      {
+        exclude: /node_modules/,
+        include: paths.src,
+        test: regex.pdf,
+        use: [
+          {
+            loader: 'file-loader',
           },
         ],
       },

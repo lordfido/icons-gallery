@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // @ts-ignore
 import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 import { getLocalStorage, setLocalStorage } from '../../../common/utils/localStorage';
-import { downloadFileContent, getDownloadableTemplate, replaceColor, replaceSize } from '../../utils/svg';
+import { downloadFileContent, getDownloadableTemplate, isIcon, replaceColor, replaceSize } from '../../utils/svg';
 
 import List from './list';
 import { ViewMode } from './list-item';
@@ -40,6 +40,7 @@ interface IStateProps {
   availableBrands: string[];
   icon: IIcon | void;
   icons: IIconsCollection;
+  pdfs: IIconsCollection;
 }
 
 interface IDispatchProps {
@@ -239,13 +240,22 @@ const UnstyledIconListWrapper = ({
 
 const IconListWrapper = injectSheet(sheet)(UnstyledIconListWrapper);
 
-const mapStateToProps = (state: IRootState) => {
+const mapStateToProps = (state: IRootState): IStateProps => {
+  const rawIcons = getFilteredIcons(state);
+  const icons: IIconsCollection = {};
+  const pdfs: IIconsCollection = {};
   const icon = getSelectedIcon(state);
+
+  Object.keys(rawIcons).forEach(brandName => {
+    icons[brandName] = rawIcons[brandName].filter(isIcon);
+    pdfs[brandName] = rawIcons[brandName].filter(i => !isIcon(i));
+  });
 
   return {
     availableBrands: icon ? getAvailableBrands(state)(icon.fileName) : [],
-    icon: getSelectedIcon(state),
-    icons: getFilteredIcons(state),
+    icon,
+    icons,
+    pdfs,
   };
 };
 

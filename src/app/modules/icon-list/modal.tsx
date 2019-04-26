@@ -204,7 +204,9 @@ const UnstyledIconDetailsView = ({
   template,
   viewIconLimits,
 }: IOwnProps) => {
-  const downloadSvgLink = `data:application/octet-stream;charset=utf-8;base64,${btoa(template)}`;
+  const downloadSvgLink = `data:application/octet-stream;charset=utf-8;base64,${btoa(
+    unescape(encodeURIComponent(template))
+  )}`;
 
   return (
     <div className={classes.wrapper}>

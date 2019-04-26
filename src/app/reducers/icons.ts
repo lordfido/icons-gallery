@@ -1,4 +1,5 @@
 import searchEngine from '../utils/search-engine';
+import { isIcon } from '../utils/svg';
 
 import {
   ICONS_CREATE_LIBRARY,
@@ -12,23 +13,23 @@ import {
 import { IIconsCollection } from '../../constants/icons';
 import { iconsInitialState, IIcon, IIconsAction, IIconsState } from '../../models/icons';
 
-const getIconIndex = (collection: IIconsCollection, icon: IIcon) =>
-  collection[icon.brand].findIndex(i => i.fileName === icon.fileName);
+const getIconIndex = (collection: IIcon[], { fileName }: IIcon) =>
+  collection.filter(isIcon).findIndex(i => i.fileName === fileName);
 
 const getNextIcon = (collection: IIconsCollection, icon: IIcon) => {
-  const brandCollection = collection[icon.brand];
-  const iconIndex = getIconIndex(collection, icon);
+  const brandCollection = collection[icon.brand].filter(isIcon);
+  const iconIndex = getIconIndex(brandCollection, icon);
   const nextIconIndex = iconIndex < brandCollection.length - 1 ? iconIndex + 1 : 0;
 
-  return collection[icon.brand][nextIconIndex];
+  return brandCollection[nextIconIndex];
 };
 
 const getPrevIcon = (collection: IIconsCollection, icon: IIcon) => {
-  const brandCollection = collection[icon.brand];
-  const iconIndex = getIconIndex(collection, icon);
+  const brandCollection = collection[icon.brand].filter(isIcon);
+  const iconIndex = getIconIndex(brandCollection, icon);
   const prevIconIndex = iconIndex > 0 ? iconIndex - 1 : brandCollection.length - 1;
 
-  return collection[icon.brand][prevIconIndex];
+  return brandCollection[prevIconIndex];
 };
 
 const reducer = (state = iconsInitialState, action: IIconsAction) => {
@@ -43,7 +44,7 @@ const reducer = (state = iconsInitialState, action: IIconsAction) => {
 
     case ICONS_SELECT:
       const { brand, fileName } = action.payload as IIcon;
-      const selected = state.collection[brand].find(i => i.fileName === fileName);
+      const selected = state.collection[brand].filter(isIcon).find(i => i.fileName === fileName);
 
       return {
         ...state,

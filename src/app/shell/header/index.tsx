@@ -79,7 +79,7 @@ const unstyledHeader = ({ classes }: IOwnProps) => (
         <ul className={classes.list}>
           <li className={classes.listElement}>
             <RouterLink className={classnames(classes.link, classes.highlighted)} to={HOME}>
-              icons.tuenti.io
+              Icons Gallery
             </RouterLink>
           </li>
           <li className={classes.listElement}>
@@ -89,11 +89,6 @@ const unstyledHeader = ({ classes }: IOwnProps) => (
       </div>
       <div className={classnames(classes.section, classes.right)}>
         <ul className={classes.list}>
-          <li className={classes.listElement}>
-            <RouterLink className={classes.link} to={HOME}>
-              Guide
-            </RouterLink>
-          </li>
           <li className={classes.listElement}>
             <Link
               options={{

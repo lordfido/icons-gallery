@@ -2,10 +2,10 @@
   "name": "icons-gallery",
   "version": "0.1.0",
   "displayName": "Tuenti Icons",
-  "description": "A small site to search available icons for Novum app",
+  "description": "A small site to search available icons for any SVG icons collection",
   "main": "index.js",
   "repository": "git@github.com:lordfido/icons-gallery.git",
-  "author": "Rafael Pérez García <rperez@tuenti.com>",
+  "author": "Rafael Pérez García <rafael.perez@imperdiblesoft.com>",
   "license": "MIT",
   "homepage": "https://localhost:8080",
   "lint-staged": {

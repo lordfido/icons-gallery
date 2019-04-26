@@ -3,8 +3,8 @@ const getMaxMediaQuery = (limit: number) => `@media screen and (max-width: ${lim
 
 // Mobile
 export const MOBILE = getMinMediaQuery(320);
-export const MAX_MOBILE = getMaxMediaQuery(479);
-export const MOBILE_L = getMinMediaQuery(480);
+export const MAX_MOBILE = getMaxMediaQuery(411);
+export const MOBILE_L = getMinMediaQuery(412);
 export const MAX_MOBILE_L = getMaxMediaQuery(511);
 export const MOBILE_XL = getMinMediaQuery(512);
 export const MAX_MOBILE_XL = getMaxMediaQuery(589);

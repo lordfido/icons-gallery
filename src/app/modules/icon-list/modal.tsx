@@ -96,6 +96,17 @@ const sheet: ISheet = {
     maxWidth: 256,
     width: '100%',
   },
+  iconPreview: {
+    borderBottom: '2px solid transparent',
+    borderLeft: '2px solid transparent',
+    display: 'flex',
+    height: ({ iconSize }) => parseInt(iconSize, 10) + 2,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: ({ iconSize }) => parseInt(iconSize, 10) + 2,
+  },
+  // tslint:disable:object-literal-sort-keys
   iconLimits: {
     borderColor: 'blue',
   },
@@ -173,7 +184,6 @@ interface IOwnProps {
   background: string;
   classes: { [key: string]: string };
   foreground: string;
-  handleDownloadPdf: () => void;
   handleDownloadPng: () => void;
   handleUnselectIcon: () => void;
   handleUpdateBackground: (c: string) => void;
@@ -193,7 +203,6 @@ const UnstyledIconDetailsView = ({
   background,
   classes,
   foreground,
-  handleDownloadPdf,
   handleDownloadPng,
   handleUnselectIcon,
   handleUpdateBackground,
@@ -249,6 +258,10 @@ const UnstyledIconDetailsView = ({
             <h1 className={classes.title}>{icon.fileName}.svg</h1>
           </div>
           <div className={classes.preview} style={{ background }}>
+            <DynamicSVG
+              className={classnames(classes.iconPreview, { [classes.iconLimits]: showIconLimits && viewIconLimits })}
+              template={template}
+            />
             <DynamicSVG
               className={classnames(classes.icon, { [classes.iconLimits]: showIconLimits && viewIconLimits })}
               template={replaceSize(template, iconSize, '100%')}

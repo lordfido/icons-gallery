@@ -142,12 +142,6 @@ const UnstyledIconListWrapper = ({
     }
   };
 
-  const handleDownloadPdf = () => {
-    if (template && icon) {
-      alert('Disabled feature');
-    }
-  };
-
   const handleUpdateIconBrand = !icon
     ? doNothing
     : (event: IFieldOutput) => {
@@ -219,7 +213,6 @@ const UnstyledIconListWrapper = ({
           availableBrands={availableBrands}
           background={background}
           foreground={foreground}
-          handleDownloadPdf={handleDownloadPdf}
           handleDownloadPng={handleDownloadPng}
           handleUnselectIcon={UnselectIcon}
           handleUpdateBackground={handleUpdateBackground}
